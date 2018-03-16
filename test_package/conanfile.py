@@ -17,8 +17,8 @@ class JsoncTestConan(ConanFile):
 
         # Ensure we only link to system libraries and our own libraries.
         if platform.system() == 'Darwin':
-            self.run('! (otool -L bin/*.dylib | grep -v "^bin/" | egrep -v "^\s*(/usr/lib/|/System/|@rpath/)")')
+            self.run('! (otool -L lib/*.dylib | grep -v "^lib/" | egrep -v "^\s*(/usr/lib/|/System/|@rpath/)")')
         elif platform.system() == 'Linux':
-            self.run('! (ldd bin/*.so | grep -v "^bin/" | grep "/" | egrep -v "\s/lib64/")')
+            self.run('! (ldd lib/*.so | grep -v "^lib/" | grep "/" | egrep -v "\s/lib64/")')
         else:
             raise Exception('Unknown platform "%s"' % platform.system())

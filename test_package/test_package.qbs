@@ -14,7 +14,12 @@ Project {
 			return buildDirectory.substr(0, buildDirectory.lastIndexOf('/', buildDirectory.lastIndexOf('/') - 1)) + "/bin";
 		}
 		cpp.cxxStandardLibrary: 'libstdc++'
-		cpp.rpaths: [ buildDirectory + '/../../bin' ]
+		cpp.rpaths: [ buildDirectory + '/../../lib' ]
+
+		// The LLVM/Clang libs get automatically added by the `requires` line,
+		// but this package doesn't need to link with them,
+		// so overwrite it with just the library we need.
+		cpp.dynamicLibraries: [ 'json-c' ]
 
 		Depends {
 			condition: qbs.targetOS.contains('macos')
