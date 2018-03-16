@@ -7,11 +7,11 @@ compiler:
     - clang
 
 before_install:
-    - pip install --upgrade pyOpenSSL
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
              brew update
-          && travis_wait brew install --force-bottle conan qbs
+          && travis_wait brew install --force-bottle conan python qbs
       ; fi
+    - pip install --upgrade pyOpenSSL
 
 install:
     - qbs setup-qt --detect
