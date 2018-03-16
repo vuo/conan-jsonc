@@ -9,9 +9,10 @@ compiler:
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
              brew update
-          && travis_wait brew install --force-bottle conan python@2 qbs
+          && travis_wait brew install --force-bottle conan openssl qbs
+          && brew link --force openssl
+          && travis_wait brew install --build-from-source python
       ; fi
-    - pip install --upgrade pyOpenSSL
 
 install:
     - qbs setup-qt --detect
