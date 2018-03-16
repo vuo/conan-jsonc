@@ -8,11 +8,18 @@ compiler:
 
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-             brew update
+             brew update &> /dev/null
           && travis_wait brew install --force-bottle conan openssl qbs
           && brew link --force openssl
-          && travis_wait brew install --build-from-source python
+          && travis_wait brew install --build-from-source python@2 --with-brewed-openssl
       ; fi
+    - /usr/local/Cellar/conan/1.1.1/libexec/bin/python -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
+    - which -a python || true
+    - python -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
+    - which -a python2 || true
+    - python2 -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
+    - which -a python3 || true
+    - python3 -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
 
 install:
     - qbs setup-qt --detect
