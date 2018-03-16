@@ -13,6 +13,8 @@ before_install:
           && brew link --force openssl
           && travis_wait brew install --build-from-source python@2 --with-brewed-openssl
       ; fi
+    - pip2 install --upgrade pip setuptools
+    - pip2 install --upgrade hashlib
     - pip2 install --upgrade pyOpenSSL
     - /usr/local/Cellar/conan/1.1.1/libexec/bin/python -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
     - /usr/bin/python -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
