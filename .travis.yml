@@ -20,4 +20,4 @@ install:
 
 script:
     - conan create . vuo/stable
-      && conan upload --remote vuo --all --confirm json-c/*
+      && conan upload --remote vuo --all --confirm jsonc/*

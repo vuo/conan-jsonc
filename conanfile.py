@@ -3,7 +3,7 @@ import os
 import platform
 
 class JsoncConan(ConanFile):
-    name = 'json-c'
+    name = 'jsonc'
 
     source_version = '0.12'
     source_fullversion = '0.12-20140410'
