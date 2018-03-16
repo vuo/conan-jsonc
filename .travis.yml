@@ -1,6 +1,6 @@
 os:
     - osx
-osx_image: xcode6.4
+osx_image: xcode7.3
 
 language: cpp
 compiler:
@@ -9,16 +9,8 @@ compiler:
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
              brew update &> /dev/null
-          && travis_wait brew install --force-bottle conan openssl qbs
-          && brew link --force openssl
-          && travis_wait brew install --build-from-source python@2 --with-brewed-openssl
+          && travis_wait brew install --force-bottle conan qbs
       ; fi
-    - pip2 install --upgrade pip setuptools
-    - pip2 install --upgrade hashlib
-    - pip2 install --upgrade pyOpenSSL
-    - /usr/local/Cellar/conan/1.1.1/libexec/bin/python -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
-    - /usr/bin/python -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
-    - /usr/local/bin/python2 -c "import ssl; print(ssl.OPENSSL_VERSION)" || true
 
 install:
     - qbs setup-qt --detect
