@@ -10,7 +10,7 @@ class JsoncConan(ConanFile):
     package_version = '2'
     version = '%s-%s' % (source_version, package_version)
 
-    requires = 'llvm/3.3-1@vuo/stable'
+    requires = 'llvm/3.3-2@vuo/stable'
     settings = 'os', 'compiler', 'build_type', 'arch'
     url = 'https://github.com/vuo/conan-jsonc'
     license = 'https://github.com/json-c/json-c/blob/master/COPYING'
