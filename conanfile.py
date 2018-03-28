@@ -22,6 +22,8 @@ class JsoncConan(ConanFile):
         tools.get('https://github.com/json-c/json-c/archive/json-c-%s.tar.gz' % self.source_fullversion,
                   sha256='99304a4a633f1ee281d6a521155a182824dd995139d5ed6ee5c93093c281092b')
 
+        self.run('mv %s/COPYING %s/%s.txt' % (self.source_dir, self.source_dir, self.name))
+
     def build(self):
         tools.mkdir(self.build_dir)
         with tools.chdir(self.build_dir):
@@ -62,6 +64,8 @@ class JsoncConan(ConanFile):
 
         self.copy('*.h', src='%s/include' % self.build_dir, dst='include')
         self.copy('libjson-c.%s' % libext, src='%s/lib' % self.build_dir, dst='lib')
+
+        self.copy('%s.txt' % self.name, src=self.source_dir, dst='license')
 
     def package_info(self):
         self.cpp_info.libs = ['json-c']
