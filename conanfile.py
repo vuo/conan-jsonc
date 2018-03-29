@@ -18,6 +18,12 @@ class JsoncConan(ConanFile):
     source_dir = 'json-c-json-c-%s' % source_fullversion
     build_dir = '_build'
 
+    def requirements(self):
+        if platform.system() == 'Linux':
+            self.requires('patchelf/0.9@vuo/stable')
+        elif platform.system() != 'Darwin':
+            raise Exception('Unknown platform "%s"' % platform.system())
+
     def source(self):
         tools.get('https://github.com/json-c/json-c/archive/json-c-%s.tar.gz' % self.source_fullversion,
                   sha256='99304a4a633f1ee281d6a521155a182824dd995139d5ed6ee5c93093c281092b')
@@ -53,6 +59,10 @@ class JsoncConan(ConanFile):
                                           '--prefix=%s' % os.getcwd()])
                 autotools.make(args=['--quiet'])
                 autotools.make(target='install', args=['--quiet'])
+
+            if platform.system() == 'Linux':
+                patchelf = self.deps_cpp_info['patchelf'].rootpath + '/bin/patchelf'
+                self.run('%s --set-soname libjson-c.so lib/libjson-c.so' % patchelf)
 
     def package(self):
         if platform.system() == 'Darwin':
