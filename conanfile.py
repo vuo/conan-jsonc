@@ -10,7 +10,7 @@ class JsoncConan(ConanFile):
     package_version = '2'
     version = '%s-%s' % (source_version, package_version)
 
-    requires = 'llvm/3.3-2@vuo/stable'
+    build_requires = 'llvm/3.3-5@vuo/stable'
     settings = 'os', 'compiler', 'build_type', 'arch'
     url = 'https://github.com/vuo/conan-jsonc'
     license = 'https://github.com/json-c/json-c/blob/master/COPYING'
@@ -37,7 +37,7 @@ class JsoncConan(ConanFile):
 
             # The LLVM/Clang libs get automatically added by the `requires` line,
             # but this package doesn't need to link with them.
-            autotools.libs = []
+            autotools.libs = ['c++abi']
 
             autotools.flags.append('-Oz')
             autotools.flags.append('-Wno-error')
